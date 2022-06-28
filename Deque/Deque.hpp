@@ -6,26 +6,27 @@
 #define DEQUE_HPP
 template<typename T> class Deque_Iterator{
 	private:
-		int index;
 		int start;
 		int end;
 		T * datap;
-	public:
+	public:	
+		int index;
 		Deque_Iterator(int ind, int st, int en, T* d){
 			index = ind;
 			start = st;
 			end = en;
 			datap = d;
 		}	
-		void inc(){
+		Deque_Iterator<T> &operator++(int){
 			if(index == end){
 				index = start;
 			}
 			else{
 				index++;
 			}
+			return this;
 		}
-		void dec(){
+		Deque_Iterator &operator--(int){
 			if(index < start){
 				index = end - 1;
 			}
@@ -39,7 +40,10 @@ template<typename T> class Deque_Iterator{
 				
 
 };
-template<typename T1, typename T2> bool operator!=(const Deque_Iterator<T1> it1, const Deque_Iterator<T2> it2); 
+//non-member function
+template<typename T1, typename T2> bool operator!=(const Deque_Iterator<T1> it1, const Deque_Iterator<T2> it2){
+		return it1.index == it2.index ? false : true;
+} 
 template<typename T> class Deque{
 	private:
 		T * data;
@@ -49,8 +53,31 @@ template<typename T> class Deque{
 			data = NULL;
 			sz = 0;
 		}
-		Deque &operator=(Deque &q);
-		size_t size(){
+		template<typename U> Deque(const Deque<U> &deq){
+			if(deq.get_data() != NULL){
+				data = deq.get_data();
+				sz = deq.size();
+			}
+		}
+		Deque(const Deque &deq){
+			if(deq.get_data() != NULL){
+				data = deq.get_data();
+				sz = deq.size();
+			
+			}
+		}
+		Deque &operator=(Deque &q){
+			if(q.get_data() != NULL){
+				data = q.get_data();
+				sz = q.size();
+		
+			}
+		}
+		
+		T* get_data() const{
+			return data;
+		}
+		size_t size() const{
 			return sz;
 		}
 		bool empty(){
@@ -142,13 +169,17 @@ template<typename T> class Deque{
 		}
 		
 		Deque_Iterator<T> begin(){
-			Deque_Iterator<T> iter(0, 0, sz, &data);
+			Deque_Iterator<T> iter(0, 0, sz, data);
 			return iter;
 		}
 		Deque_Iterator<T> end(){
-			Deque_Iterator<T> iter(sz, 0, sz, &data);
+			Deque_Iterator<T> iter(sz, 0, sz, data);
 			return iter;
 		}
+	/*	~Deque(){
+			delete data;
+			sz = 0; 
+		}*/
 	
 		
 };

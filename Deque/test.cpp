@@ -11,9 +11,22 @@ int main(){
 	m.push_back(1);
 	m.push_back(5);
 	m.push_front(20);
-	for(Deque_Iterator<int> it = m.begin(); it != m.end(); it.inc()){
+	for(Deque_Iterator<int> it = m.begin(); it != m.end(); it++){
 		cout << it.get() << "\n";
 	}
+	Deque<int> m1(m);
+	std::cout << "m1 created m1(m)\n";
+	for(Deque_Iterator<int> it = m1.begin(); it != m1.end(); it++){
+		cout << it.get() << "\n";
+	}
+	Deque<int> m2 = m1;
+	std::cout << "m2 created m2 = m1\n";
+	
+	for(Deque_Iterator<int> it = m2.begin(); it != m2.end(); it++){
+	
+		cout << it.get() << "\n";
+	}
+	
 	/*	
 	std::cout << m.size() << " is the size\n";
 	if(!m.empty()){
