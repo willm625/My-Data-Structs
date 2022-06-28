@@ -4,47 +4,47 @@
 #include <iostream>
 #ifndef DEQUE_HPP
 #define DEQUE_HPP
+template<typename T> class Deque_Iterator{
+	private:
+		int index;
+		int start;
+		int end;
+		T * datap;
+	public:
+		Deque_Iterator(int ind, int st, int en, T* d){
+			index = ind;
+			start = st;
+			end = en;
+			datap = d;
+		}	
+		void inc(){
+			if(index == end){
+				index = start;
+			}
+			else{
+				index++;
+			}
+		}
+		void dec(){
+			if(index < start){
+				index = end - 1;
+			}
+			else{
+				index--;
+			}
+		}
+		T& get(){
+			return datap[index];
+		}
+				
 
+};
+template<typename T1, typename T2> bool operator!=(const Deque_Iterator<T1> it1, const Deque_Iterator<T2> it2); 
 template<typename T> class Deque{
-	class Deque_Iterator{
-		private:
-			int index;
-			int start;
-			int end;
-			T * datap;
-		public:
-			Deque_Iterator(int ind, int st, int en, T* d){
-				index = ind;
-				start = st;
-				end = en;
-				datap = d;
-			}	
-			void inc(){
-				if(index == end){
-					index = start;
-				}
-				else{
-					index++;
-				}
-			}
-			void dec(){
-				if(index < start){
-					index = end - 1;
-				}
-				else{
-					index--;
-				}
-			}
-			T& deref(){
-				return datap[index];
-			}
-		
-	};
 	private:
 		T * data;
 		size_t sz;
 	public:	
-		//DequeIterator
 		Deque(){
 			data = NULL;
 			sz = 0;
@@ -141,8 +141,12 @@ template<typename T> class Deque{
 			sz = 0;
 		}
 		
-		Deque_Iterator begin(){
-			Deque iter(0, 0, sz, &data);
+		Deque_Iterator<T> begin(){
+			Deque_Iterator<T> iter(0, 0, sz, &data);
+			return iter;
+		}
+		Deque_Iterator<T> end(){
+			Deque_Iterator<T> iter(sz, 0, sz, &data);
 			return iter;
 		}
 	

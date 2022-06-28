@@ -8,7 +8,13 @@ int main(){
 		cout << "m is empty\n";
 	};
 	m.push_back(3);
-	m.push_back(1);	
+	m.push_back(1);
+	m.push_back(5);
+	m.push_front(20);
+	for(Deque_Iterator<int> it = m.begin(); it != m.end(); it.inc()){
+		cout << it.get() << "\n";
+	}
+	/*	
 	std::cout << m.size() << " is the size\n";
 	if(!m.empty()){
 		cout << "m not empty\n";
@@ -32,5 +38,6 @@ int main(){
 
 	std::cout << m1.size() << " is the size\n";
 	std::cout << m1.at(0) << " is m1 at 0\n";
+	*/
 	return 0;
 }
