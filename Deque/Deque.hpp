@@ -17,16 +17,16 @@ template<typename T> class Deque_Iterator{
 			end = en;
 			datap = d;
 		}	
-		Deque_Iterator<T> &operator++(int){
+		void operator++(int){
 			if(index == end){
 				index = start;
 			}
 			else{
 				index++;
 			}
-			return this;
+			
 		}
-		Deque_Iterator &operator--(int){
+		void operator--(int){
 			if(index < start){
 				index = end - 1;
 			}
@@ -160,6 +160,10 @@ template<typename T> class Deque{
 			assert(i < (int) sz);
 			return data[i];
 		}
+		T& operator[](int i){
+			assert(i < (int) sz);
+			return data[i];
+		}
 		void clear(){
 			T * temp = new T[0];
 			delete data;
@@ -183,5 +187,11 @@ template<typename T> class Deque{
 	
 		
 };
+/*FUNCTIONS TO IMPLEMENT:
+	erase()
+	operator print overload
+	==, != <, >, <=, >=
+	
+*/
 //template <typename T1, typename T2> bool operator==(Deque &q1, Deque &q2);
 #endif 

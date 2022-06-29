@@ -26,7 +26,7 @@ int main(){
 	
 		cout << it.get() << "\n";
 	}
-	
+	cout << "m1 at 3: " << m1.at(3) << " m1[3] : " << m1[3] << "\n";
 	/*	
 	std::cout << m.size() << " is the size\n";
 	if(!m.empty()){
