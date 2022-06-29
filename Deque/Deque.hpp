@@ -9,8 +9,8 @@ template<typename T> class Deque_Iterator{
 		int start;
 		int end;
 		T * datap;
-	public:	
 		int index;
+	public:	
 		Deque_Iterator(int ind, int st, int en, T* d){
 			index = ind;
 			start = st;
@@ -26,7 +26,12 @@ template<typename T> class Deque_Iterator{
 			}
 			
 		}
-		void operator--(int){
+		Deque_Iterator operator+(int num){
+			assert(index+num != end);
+			Deque_Iterator iter(index + num, start, end, datap);
+			return iter;
+		}
+		void operator--(){
 			if(index < start){
 				index = end - 1;
 			}
@@ -37,13 +42,19 @@ template<typename T> class Deque_Iterator{
 		T& get(){
 			return datap[index];
 		}
+		int get_index() const{
+			return index;
+		}
 				
 
 };
 //non-member function
 template<typename T1, typename T2> bool operator!=(const Deque_Iterator<T1> it1, const Deque_Iterator<T2> it2){
-		return it1.index == it2.index ? false : true;
+		return it1.get_index() == it2.get_index() ? false : true;
 } 
+template<typename T1, typename T2> bool operator==(const Deque_Iterator<T1> it1, const Deque_Iterator<T2> it2){
+		return it1.get_index() == it2.get_index() ? true : false;
+}
 template<typename T> class Deque{
 	private:
 		T * data;
@@ -180,7 +191,53 @@ template<typename T> class Deque{
 			Deque_Iterator<T> iter(sz, 0, sz, data);
 			return iter;
 		}
-	/*	~Deque(){
+		Deque_Iterator<T> erase(Deque_Iterator<T> pos){
+			sz--;
+			T * temp = new T[sz];
+			int index = pos.get_index();
+			int ind = 0;
+			for(size_t i = 0; i < sz+1; i++){
+				if(i != index){
+					temp[ind] = data[i];
+					ind++;
+				}
+			}
+			delete data;
+			data = temp;
+			temp = NULL;
+			if(index == sz){
+				return end();
+			}
+			else{
+				Deque_Iterator<T> iter(0, index, sz, data);
+				return iter;
+			}
+		}
+		Deque_Iterator<T> erase(Deque_Iterator<T> first, Deque_Iterator<T> last){
+			int len = last.get_index() - first.get_index();
+			int old_sz = sz;
+			sz = sz - len;
+			T * temp = new T[sz];
+			int ind = 0;
+			for(size_t i = 0; i < old_sz; i++){
+				if(i < first.get_index() || i >= last.get_index()){
+					temp[ind] = data[i];
+					ind++;
+				}
+			}
+			delete data;
+			data = temp;
+			temp = NULL;
+			if(last == end()){
+				return end();
+			}
+			else{
+				--last;
+				return last;
+			}
+		}
+		/*
+		~Deque(){
 			delete data;
 			sz = 0; 
 		}*/
@@ -193,5 +250,15 @@ template<typename T> class Deque{
 	==, != <, >, <=, >=
 	
 */
-//template <typename T1, typename T2> bool operator==(Deque &q1, Deque &q2);
+template <typename T> bool operator==(Deque<T> &q1, Deque<T> &q2){
+	if(q1.size() != q2.size()){
+		return false;
+	}
+	for(int i = 0; i < q1.size(); i++){
+		if(q1[i] != q2[i]){
+			return false;
+		}
+	}
+	return true;
+}
 #endif 

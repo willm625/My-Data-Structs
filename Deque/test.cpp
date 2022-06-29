@@ -26,7 +26,18 @@ int main(){
 	
 		cout << it.get() << "\n";
 	}
-	cout << "m1 at 3: " << m1.at(3) << " m1[3] : " << m1[3] << "\n";
+	//m1.erase(m1.begin()+1, m1.begin()+4);
+	//cout << "ERASED\n";	
+	if(m1 == m2){
+		cout << "m1 == m2\n";
+	}
+	for(Deque_Iterator<int> it = m1.begin(); it != m1.end(); it++){
+		cout << it.get() << "\n";
+	}
+	//cout << "m1 size " << m1.size() << "\n";	
+	//cout << "m1 at 0: " << m1.at(0) << " m1[0] : " << m1[0] << "\n";
+	
+	//cout << "m2 at 0: " << m2.at(0) << " m2[0] : " << m2[0] << "\n";
 	/*	
 	std::cout << m.size() << " is the size\n";
 	if(!m.empty()){
