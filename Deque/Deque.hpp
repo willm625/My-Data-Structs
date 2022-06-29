@@ -4,6 +4,14 @@
 #include <iostream>
 #ifndef DEQUE_HPP
 #define DEQUE_HPP
+
+/*
+Double ended Queue class based on an array
+data size grows dynamically for insertions
+elements can be added/removed on both ends
+*/
+
+//Iterator class for deque, has direct access to data for iteration 
 template<typename T> class Deque_Iterator{
 	private:
 		int start;
@@ -260,5 +268,8 @@ template <typename T> bool operator==(Deque<T> &q1, Deque<T> &q2){
 		}
 	}
 	return true;
+}
+template <typename T> bool operator !=(Deque<T> &q1, Deque<T> &q2){
+	return (q1 == q2) ? false : true;
 }
 #endif 

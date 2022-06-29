@@ -31,7 +31,12 @@ int main(){
 	if(m1 == m2){
 		cout << "m1 == m2\n";
 	}
+	m1.pop_back();
+	if(m1 != m2){
+		cout << "m1 != m2\n";	
+	}
 	for(Deque_Iterator<int> it = m1.begin(); it != m1.end(); it++){
+
 		cout << it.get() << "\n";
 	}
 	//cout << "m1 size " << m1.size() << "\n";	
